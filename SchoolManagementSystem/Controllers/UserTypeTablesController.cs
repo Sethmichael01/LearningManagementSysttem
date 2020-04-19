@@ -46,7 +46,7 @@ namespace SchoolManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserTypeID,TypeName,Description")] UserTypeTable userTypeTable)
+        public ActionResult Create(UserTypeTable userTypeTable)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace SchoolManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserTypeID,TypeName,Description")] UserTypeTable userTypeTable)
+        public ActionResult Edit(UserTypeTable userTypeTable)
         {
             if (ModelState.IsValid)
             {
