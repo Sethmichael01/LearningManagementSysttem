@@ -1,31 +1,29 @@
-﻿@model DataAccess.SessionTable
+﻿@model DataAccess.ProgrameTable
 
 @{
-    ViewBag.Title = "Session";
+    ViewBag.Title = "Programe";
 }
 
-<h2>Edit Session</h2>
+<h2>Create</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>SessionTable</h4>
+        <h4>Programe</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.SessionID)
-
         @*<div class="form-group">
-            @Html.LabelFor(model => model.UserID, "User Type", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
+            @Html.LabelFor(model => model.UserID, "UserID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
                 @Html.DropDownList("UserID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
             </div>
         </div>*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, "Session", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Name, "Programe Name", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-5">
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -41,19 +39,20 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.EndDate, "End Date", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IsActive, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-5">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsActive)
+                    @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
-                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+                <input type="submit" value="Create" class="btn btn-success" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class= "btn btn-primary"})
             </div>
         </div>
     </div>
 }
-

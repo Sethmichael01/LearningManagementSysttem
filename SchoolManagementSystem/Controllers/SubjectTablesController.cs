@@ -10,22 +10,22 @@ using DataAccess;
 
 namespace SchoolManagementSystem.Controllers
 {
-    public class SessionTablesController : Controller
+    public class SubjectTablesController : Controller
     {
         private SchoolMgtDbEntities db = new SchoolMgtDbEntities();
 
-        // GET: SessionTables
+        // GET: SubjectTables
         public ActionResult Index()
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
                 return RedirectToAction("Login", "Account");
             }
-            var sessionTables = db.SessionTables.Include(s => s.UserTable);
-            return View(sessionTables.ToList());
+            var subjectTables = db.SubjectTables.Include(s => s.UserTable);
+            return View(subjectTables.ToList());
         }
 
-        // GET: SessionTables/Details/5
+        // GET: SubjectTables/Details/5
         public ActionResult Details(int? id)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
@@ -36,15 +36,15 @@ namespace SchoolManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SessionTable sessionTable = db.SessionTables.Find(id);
-            if (sessionTable == null)
+            SubjectTable subjectTable = db.SubjectTables.Find(id);
+            if (subjectTable == null)
             {
                 return HttpNotFound();
             }
-            return View(sessionTable);
+            return View(subjectTable);
         }
 
-        // GET: SessionTables/Create
+        // GET: SubjectTables/Create
         public ActionResult Create()
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
@@ -55,34 +55,33 @@ namespace SchoolManagementSystem.Controllers
             return View();
         }
 
-        // POST: SessionTables/Create
+        // POST: SubjectTables/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SessionTable sessionTable)
+        public ActionResult Create(SubjectTable subjectTable)
         {
+            int UserId = Convert.ToInt32(Convert.ToString(Session["UserId"]));
+            subjectTable.UserID = UserId;
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
                 return RedirectToAction("Login", "Account");
             }
-            int UserId = Convert.ToInt32(Convert.ToString(Session["UserId"]));
-            sessionTable.UserID = UserId;
             if (ModelState.IsValid)
             {
-                db.SessionTables.Add(sessionTable);
+                db.SubjectTables.Add(subjectTable);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName", sessionTable.UserID);
-            return View(sessionTable);
+            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName", subjectTable.UserID);
+            return View(subjectTable);
         }
 
-        // GET: SessionTables/Edit/5
+        // GET: SubjectTables/Edit/5
         public ActionResult Edit(int? id)
         {
-
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
                 return RedirectToAction("Login", "Account");
@@ -91,39 +90,39 @@ namespace SchoolManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SessionTable sessionTable = db.SessionTables.Find(id);
-            if (sessionTable == null)
+            SubjectTable subjectTable = db.SubjectTables.Find(id);
+            if (subjectTable == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName", sessionTable.UserID);
-            return View(sessionTable);
+            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName", subjectTable.UserID);
+            return View(subjectTable);
         }
 
-        // POST: SessionTables/Edit/5
+        // POST: SubjectTables/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(SessionTable sessionTable)
+        public ActionResult Edit(SubjectTable subjectTable)
         {
             int UserId = Convert.ToInt32(Convert.ToString(Session["UserId"]));
-            sessionTable.UserID = UserId;
+            subjectTable.UserID = UserId;
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
                 return RedirectToAction("Login", "Account");
             }
             if (ModelState.IsValid)
             {
-                db.Entry(sessionTable).State = EntityState.Modified;
+                db.Entry(subjectTable).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName", sessionTable.UserID);
-            return View(sessionTable);
+            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName", subjectTable.UserID);
+            return View(subjectTable);
         }
 
-        // GET: SessionTables/Delete/5
+        // GET: SubjectTables/Delete/5
         public ActionResult Delete(int? id)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
@@ -134,15 +133,15 @@ namespace SchoolManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SessionTable sessionTable = db.SessionTables.Find(id);
-            if (sessionTable == null)
+            SubjectTable subjectTable = db.SubjectTables.Find(id);
+            if (subjectTable == null)
             {
                 return HttpNotFound();
             }
-            return View(sessionTable);
+            return View(subjectTable);
         }
 
-        // POST: SessionTables/Delete/5
+        // POST: SubjectTables/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -151,8 +150,8 @@ namespace SchoolManagementSystem.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            SessionTable sessionTable = db.SessionTables.Find(id);
-            db.SessionTables.Remove(sessionTable);
+            SubjectTable subjectTable = db.SubjectTables.Find(id);
+            db.SubjectTables.Remove(subjectTable);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

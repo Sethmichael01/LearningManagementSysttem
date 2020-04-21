@@ -10,22 +10,22 @@ using DataAccess;
 
 namespace SchoolManagementSystem.Controllers
 {
-    public class SessionTablesController : Controller
+    public class AnnualTablesController : Controller
     {
         private SchoolMgtDbEntities db = new SchoolMgtDbEntities();
 
-        // GET: SessionTables
+        // GET: AnnualTables
         public ActionResult Index()
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
                 return RedirectToAction("Login", "Account");
             }
-            var sessionTables = db.SessionTables.Include(s => s.UserTable);
-            return View(sessionTables.ToList());
+            var annualTables = db.AnnualTables.Include(a => a.ProgrameTable).Include(a => a.UserTable).Where(p => p.IsActive == true);
+            return View(annualTables.ToList());
         }
 
-        // GET: SessionTables/Details/5
+        // GET: AnnualTables/Details/5
         public ActionResult Details(int? id)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
@@ -36,53 +36,54 @@ namespace SchoolManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SessionTable sessionTable = db.SessionTables.Find(id);
-            if (sessionTable == null)
+            AnnualTable annualTable = db.AnnualTables.Find(id);
+            if (annualTable == null)
             {
                 return HttpNotFound();
             }
-            return View(sessionTable);
+            return View(annualTable);
         }
 
-        // GET: SessionTables/Create
+        // GET: AnnualTables/Create
         public ActionResult Create()
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
                 return RedirectToAction("Login", "Account");
             }
+            ViewBag.ProgrameID = new SelectList(db.ProgrameTables.Where(p => p.IsActive == true), "ProgrameID", "Name");
             ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName");
             return View();
         }
 
-        // POST: SessionTables/Create
+        // POST: AnnualTables/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SessionTable sessionTable)
+        public ActionResult Create(AnnualTable annualTable)
         {
+            int UserId = Convert.ToInt32(Convert.ToString(Session["UserId"]));
+            annualTable.UserID = UserId;
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
                 return RedirectToAction("Login", "Account");
             }
-            int UserId = Convert.ToInt32(Convert.ToString(Session["UserId"]));
-            sessionTable.UserID = UserId;
             if (ModelState.IsValid)
             {
-                db.SessionTables.Add(sessionTable);
+                db.AnnualTables.Add(annualTable);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName", sessionTable.UserID);
-            return View(sessionTable);
+            ViewBag.ProgrameID = new SelectList(db.ProgrameTables.Where(p => p.IsActive == true), "ProgrameID", "Name", annualTable.ProgrameID);
+            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName", annualTable.UserID);
+            return View(annualTable);
         }
 
-        // GET: SessionTables/Edit/5
+        // GET: AnnualTables/Edit/5
         public ActionResult Edit(int? id)
         {
-
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
                 return RedirectToAction("Login", "Account");
@@ -91,39 +92,41 @@ namespace SchoolManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SessionTable sessionTable = db.SessionTables.Find(id);
-            if (sessionTable == null)
+            AnnualTable annualTable = db.AnnualTables.Find(id);
+            if (annualTable == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName", sessionTable.UserID);
-            return View(sessionTable);
+            ViewBag.ProgrameID = new SelectList(db.ProgrameTables.Where(p => p.IsActive == true), "ProgrameID", "Name", annualTable.ProgrameID);
+            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName", annualTable.UserID);
+            return View(annualTable);
         }
 
-        // POST: SessionTables/Edit/5
+        // POST: AnnualTables/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(SessionTable sessionTable)
+        public ActionResult Edit(AnnualTable annualTable)
         {
             int UserId = Convert.ToInt32(Convert.ToString(Session["UserId"]));
-            sessionTable.UserID = UserId;
+            annualTable.UserID = UserId;
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
                 return RedirectToAction("Login", "Account");
             }
             if (ModelState.IsValid)
             {
-                db.Entry(sessionTable).State = EntityState.Modified;
+                db.Entry(annualTable).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName", sessionTable.UserID);
-            return View(sessionTable);
+            ViewBag.ProgrameID = new SelectList(db.ProgrameTables.Where(p => p.IsActive == true), "ProgrameID", "Name", annualTable.ProgrameID);
+            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName", annualTable.UserID);
+            return View(annualTable);
         }
 
-        // GET: SessionTables/Delete/5
+        // GET: AnnualTables/Delete/5
         public ActionResult Delete(int? id)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
@@ -134,15 +137,15 @@ namespace SchoolManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SessionTable sessionTable = db.SessionTables.Find(id);
-            if (sessionTable == null)
+            AnnualTable annualTable = db.AnnualTables.Find(id);
+            if (annualTable == null)
             {
                 return HttpNotFound();
             }
-            return View(sessionTable);
+            return View(annualTable);
         }
 
-        // POST: SessionTables/Delete/5
+        // POST: AnnualTables/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -151,8 +154,8 @@ namespace SchoolManagementSystem.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            SessionTable sessionTable = db.SessionTables.Find(id);
-            db.SessionTables.Remove(sessionTable);
+            AnnualTable annualTable = db.AnnualTables.Find(id);
+            db.AnnualTables.Remove(annualTable);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
