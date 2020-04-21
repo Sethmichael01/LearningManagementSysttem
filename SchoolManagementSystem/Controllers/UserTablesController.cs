@@ -17,6 +17,10 @@ namespace SchoolManagementSystem.Controllers
         // GET: UserTables
         public ActionResult Index()
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             var userTables = db.UserTables.Include(u => u.UserTypeTable);
             return View(userTables.ToList());
         }
@@ -24,6 +28,10 @@ namespace SchoolManagementSystem.Controllers
         // GET: UserTables/Details/5
         public ActionResult Details(int? id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +47,10 @@ namespace SchoolManagementSystem.Controllers
         // GET: UserTables/Create
         public ActionResult Create()
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             ViewBag.UserTypeID = new SelectList(db.UserTypeTables, "UserTypeID", "TypeName");
             return View();
         }
@@ -48,8 +60,12 @@ namespace SchoolManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserID,UserTypeID,FullName,UserName,Password,ContactNo,EmailAddress,Address")] UserTable userTable)
+        public ActionResult Create(UserTable userTable)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 db.UserTables.Add(userTable);
@@ -64,6 +80,10 @@ namespace SchoolManagementSystem.Controllers
         // GET: UserTables/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -82,8 +102,12 @@ namespace SchoolManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserID,UserTypeID,FullName,UserName,Password,ContactNo,EmailAddress,Address")] UserTable userTable)
+        public ActionResult Edit(UserTable userTable)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(userTable).State = EntityState.Modified;
@@ -97,6 +121,10 @@ namespace SchoolManagementSystem.Controllers
         // GET: UserTables/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -114,6 +142,10 @@ namespace SchoolManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             UserTable userTable = db.UserTables.Find(id);
             db.UserTables.Remove(userTable);
             db.SaveChanges();

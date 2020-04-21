@@ -17,12 +17,20 @@ namespace SchoolManagementSystem.Controllers
         // GET: UserTypeTables
         public ActionResult Index()
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View(db.UserTypeTables.ToList());
         }
 
         // GET: UserTypeTables/Details/5
         public ActionResult Details(int? id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +46,10 @@ namespace SchoolManagementSystem.Controllers
         // GET: UserTypeTables/Create
         public ActionResult Create()
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
 
@@ -48,6 +60,10 @@ namespace SchoolManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(UserTypeTable userTypeTable)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 db.UserTypeTables.Add(userTypeTable);
@@ -61,6 +77,10 @@ namespace SchoolManagementSystem.Controllers
         // GET: UserTypeTables/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,6 +100,10 @@ namespace SchoolManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserTypeTable userTypeTable)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(userTypeTable).State = EntityState.Modified;
@@ -92,6 +116,10 @@ namespace SchoolManagementSystem.Controllers
         // GET: UserTypeTables/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -109,6 +137,10 @@ namespace SchoolManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             UserTypeTable userTypeTable = db.UserTypeTables.Find(id);
             db.UserTypeTables.Remove(userTypeTable);
             db.SaveChanges();

@@ -139,6 +139,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserTablesController.cs" />
     <Compile Include="Controllers\UserTypeTablesController.cs" />
@@ -150,6 +151,7 @@
   <ItemGroup>
     <Content Include="Content\AdminTemplate\css\sb-admin-2.css" />
     <Content Include="Content\AdminTemplate\css\sb-admin-2.min.css" />
+    <Content Include="Content\AdminTemplate\img\photo-1520719627573-5e2c1a6610f0.jfif" />
     <Content Include="Content\AdminTemplate\img\undraw_posting_photo.svg" />
     <Content Include="Content\AdminTemplate\js\demo\chart-area-demo.js" />
     <Content Include="Content\AdminTemplate\js\demo\chart-bar-demo.js" />
@@ -1963,6 +1965,8 @@
     <Content Include="Views\UserTables\Details.cshtml" />
     <Content Include="Views\UserTables\Edit.cshtml" />
     <Content Include="Views\UserTables\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

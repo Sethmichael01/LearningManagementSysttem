@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link href="~/Content/AdminTemplate/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -85,9 +85,10 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Configuration:</h6>
-                        @Html.ActionLink("User Types","Index","UserTypeTables", null,new { @class="collapse-item"})
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                        @Html.ActionLink("User Types", "Index", "UserTypeTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("All Users", "Index", "UserTables", null, new { @class = "collapse-item" })
+                        @*<a class="collapse-item" href="buttons.html">Buttons</a>
+                        <a class="collapse-item" href="cards.html">Cards</a>*@
                     </div>
                 </div>
             </li>
@@ -196,8 +197,8 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@Session["UserName"]<i class="fa fa-caret-down"></i></span>
+                                <img class="img-profile rounded-circle" src="~/Content/AdminTemplate/img/photo-1520719627573-5e2c1a6610f0.jfif">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -216,7 +217,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Login
                                 </a>
                             </div>
                         </li>
@@ -263,7 +264,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "btn btn-primary"})
                 </div>
             </div>
         </div>
