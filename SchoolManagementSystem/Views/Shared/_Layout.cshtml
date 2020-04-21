@@ -84,7 +84,7 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Configuration:</h6>
+                        <h6 class="collapse-header">Custom Setting:</h6>
                         @Html.ActionLink("User Types", "Index", "UserTypeTables", null, new { @class = "collapse-item" })
                         @Html.ActionLink("All Users", "Index", "UserTables", null, new { @class = "collapse-item" })
                         @*<a class="collapse-item" href="buttons.html">Buttons</a>
@@ -97,15 +97,17 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+                    <span>Configuration</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                        <h6 class="collapse-header">Custom Configuration:</h6>
+                        @Html.ActionLink("Session", "Index", "SessionTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Subjects", "Index", "SubjectTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Programes", "Index", "ProgrameTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Designation", "Index", "DesignationTable", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Annual Fee/Promotion Fee", "Index", "AnnualTables", null, new { @class = "collapse-item" })
+
                     </div>
                 </div>
             </li>
